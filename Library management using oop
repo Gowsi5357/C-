@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+class LibraryItem {
+protected:
+    string title;
+    int id;
+public:
+    LibraryItem(string t, int i) : title(t), id(i) {}
+    virtual void displayInfo() = 0;
+    string getTitle() const {
+        return title;
+    }
+    int getId() const {
+        return id;
+    }
+};
+class Book : public LibraryItem {
+private:
+    string author;
+
+public:
+    Book(string t, int i, string a) : LibraryItem(t, i), author(a) {}
+    void setAuthor(string a) {
+        author = a;
+    }
+    string getAuthor() const {
+        return author;
+    }
+    void displayInfo() override {
+        cout << "Book ID: " << id << ", Title: " << title << ", Author: " << author << endl;
+    }
+};
+class DVD : public LibraryItem {
+private:
+    string director;
+public:
+    DVD(string t, int i, string d) : LibraryItem(t, i), director(d) {}
+    void setDirector(string d) {
+        director = d; // Encapsulation
+    }
+    string getDirector() const {
+        return director;
+    }
+    void displayInfo() override {
+        cout << "DVD ID: " << id << ", Title: " << title << ", Director: " << director << endl;
+    }
+};
+class Library {
+private:
+    vector<LibraryItem*> items;
+public:
+    void addItem(LibraryItem* item) {
+        items.push_back(item);
+    }
+    void displayAllItems() const {
+        for (const auto& item : items) {
+            item->displayInfo();
+        }
+    }
+};
+
+int main() {
+    Book book1("The Great Gatsby", 1, "F. Scott Fitzgerald");
+    DVD dvd1("Inception", 2, "Christopher Nolan");
+
+    Library library;
+    library.addItem(&book1);
+    library.addItem(&dvd1);
+
+    library.displayAllItems();
+
+    return 0;
+}
