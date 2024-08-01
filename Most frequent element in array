@@ -1,0 +1,27 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+int findMostFrequent(int arr[], int size) {
+    unordered_map<int, int> frequency;
+    int maxFreq = 0, mostFrequent = arr[0];
+    for (int i = 0; i < size; ++i) {
+        frequency[arr[i]]++;
+        if (frequency[arr[i]] > maxFreq) {
+            maxFreq = frequency[arr[i]];
+            mostFrequent = arr[i];
+        }
+    }
+    return mostFrequent;
+}
+int main() {
+    int size;
+    cout << "Enter the number of elements: ";
+    cin >> size;
+    int arr[size];
+    cout << "Enter the elements: ";
+    for (int i = 0; i < size; ++i) {
+        cin >> arr[i];
+    }
+    cout << "Most frequent element: " << findMostFrequent(arr, size) << endl;
+    return 0;
+}
