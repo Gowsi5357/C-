@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+class AbstractEmployee {
+    virtual void work() = 0; // Pure virtual function
+};
+
+class Manager : public AbstractEmployee {
+public:
+    void work() override {
+        cout << "Managing the team" << endl;
+    }
+};
+
+int main() {
+    Manager m;
+    m.work();
+    
+    return 0;
+} 
